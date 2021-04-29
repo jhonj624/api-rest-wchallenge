@@ -23,6 +23,10 @@ const UserSchema = Schema({
         type: String,
         required: true,
         enum: ['EUR', 'USD', 'ARS'],
+    },
+    state: {
+        type: Boolean,
+        default: true
     }
 })
 

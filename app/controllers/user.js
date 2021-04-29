@@ -16,23 +16,12 @@ const createUser = async(req, res = response) => {
     // Save to DB
     await user.save();
 
-    res.json({
-        "msg": "Post API - Create User",
+    res.status(200).json({
+        msg: "User created successfully",
         user
     });
 }
 
-const loginUser = async(req, res = response) => {
-
-    const { nickname, password } = req.body;
-    res.json({
-        msg: "Post API - Login",
-        nickname,
-        password
-    })
-}
-
 module.exports = {
-    createUser,
-    loginUser
+    createUser
 }
