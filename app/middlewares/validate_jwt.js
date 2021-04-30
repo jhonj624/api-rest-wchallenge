@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const validarJWT = async(req, res = response, next) => {
+const validateJWT = async(req, res = response, next) => {
 
     const token = req.header('x-token');
     if (!token) {
@@ -13,10 +13,10 @@ const validarJWT = async(req, res = response, next) => {
     }
 
     try {
-        const { nickname } = jwt.verify(token, process.env.SECRETKEY);
+        const { uid } = jwt.verify(token, process.env.SECRETKEY);
 
         // get the user by the nickname
-        const user = await User.findOne(nickname);
+        const user = await User.findById(uid);
 
         if (!user) {
             return res.status(401).json({
@@ -44,5 +44,5 @@ const validarJWT = async(req, res = response, next) => {
 }
 
 module.exports = {
-    validarJWT
+    validateJWT
 }
