@@ -7,7 +7,6 @@ const coingeckoService = require('../services/coingecko');
 const getCoins = async(req, res = response) => {
 
     const { per_page = 25, page = 1 } = req.query;
-    console.log(req.user);
     const params = {
         vs_currency: req.user.coin.toLowerCase(),
         per_page,
@@ -29,6 +28,19 @@ const getCoins = async(req, res = response) => {
     }
 }
 
+const addCoins = async(req, res = response) => {
+
+    // get coins ids 
+    const idsCoins = req.body.ids;
+    console.log(idsCoins);
+
+    res.status(200).json({
+        idsCoins,
+    })
+
+}
+
 module.exports = {
-    getCoins
+    getCoins,
+    addCoins,
 }

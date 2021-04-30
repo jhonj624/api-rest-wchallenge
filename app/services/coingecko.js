@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 const CoingeckoApi = require('coingecko-api');
 
 const getCoinsList = async(params = {}) => {
