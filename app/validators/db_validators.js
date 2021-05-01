@@ -1,11 +1,11 @@
 const User = require('../models/user');
 
-const nicknameValidate = async(nickname = '') => {
-    const nicknameExist = await User.findOne({ nickname });
-    if (nicknameExist) {
-        throw new Error(`Already exists an user with the nickname: ${nickname}`)
-    }
-}
+const usernameValidate = async (username = '') => {
+  const usernameExist = await User.findOne({ username });
+  if (usernameExist) {
+    throw new Error(`Already exists an user with the username: ${username}`);
+  }
+};
 module.exports = {
-    nicknameValidate
-}
+  usernameValidate,
+};
