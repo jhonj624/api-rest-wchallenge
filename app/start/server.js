@@ -1,55 +1,51 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-
 
 const { dbConnector } = require('../database/config');
 
 const userRoutes = require('../routes/user');
 const coingeckoRoutes = require('../routes/coingecko');
-
+const authRoutes = require('../routes/auth');
 
 class Server {
+  constructor() {
+    this.app = express();
+    this.port = process.env.PORT;
 
-    constructor() {
-        this.app = express();
-        this.port = process.env.PORT;
+    // DB Connection
+    this.dbConnection();
 
-        // DB Connection
-        this.dbConnection();
+    // Middlewares
+    this.middlewares();
 
-        // Middlewares
-        this.middlewares();
+    // App routes
+    this.routes();
+  }
 
-        // App routes
-        this.routes();
+  async dbConnection() {
+    await dbConnector();
+  }
 
-    }
+  middlewares() {
+    // CORS
+    this.app.use(cors());
 
-    async dbConnection() {
-        await dbConnector();
-    }
+    // Reading and body parser
+    this.app.use(express.json());
+  }
 
-    middlewares() {
-        // CORS
-        this.app.use(cors());
+  routes() {
+    this.app.use(userRoutes);
+    this.app.use(coingeckoRoutes);
+    this.app.use(authRoutes);
+  }
 
-        // Reading and body parser
-        this.app.use(express.json());
-    }
-
-    routes() {
-        this.app.use(userRoutes);
-        this.app.use(coingeckoRoutes);
-
-    }
-
-    listen() {
-        this.app.listen(this.port, () => {
-            console.log('Server running in port: ', this.port);
-        })
-    }
-
+  listen() {
+    this.app.listen(this.port, () => {
+      console.log('Server running in port: ', this.port);
+    });
+  }
 }
 
 module.exports = Server;
