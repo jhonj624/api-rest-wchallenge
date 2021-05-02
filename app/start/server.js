@@ -12,6 +12,7 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
+    this.servidor = ' ';
 
     // DB Connection
     this.dbConnection();
@@ -43,10 +44,14 @@ class Server {
   }
 
   listen() {
-    this.app.listen(this.port, () => {
+    this.servidor = this.app.listen(this.port, () => {
       // eslint-disable-next-line no-console
       console.log('Server running in port: ', this.port);
     });
+  }
+
+  close() {
+    this.servidor.close();
   }
 }
 

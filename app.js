@@ -1,5 +1,7 @@
 const Server = require('./app/start/server')
 
-const server = new Server();
+const app = new Server();
 
-server.listen()
+app.listen();
+
+module.exports = app;
