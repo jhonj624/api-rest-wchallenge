@@ -23,13 +23,13 @@ const loginUser = async (req, res = response) => {
     // Generate JWT
     const token = await jwtGenerator(user.id);
 
-    res.status(200).json({
+    return res.status(200).json({
       msg: 'Login successfully',
       user,
       token,
     });
   } catch (error) {
-    res.status(500).json({ msg: 'Contact system administrator' });
+    return res.status(500).json({ msg: 'Contact system administrator' });
   }
 };
 

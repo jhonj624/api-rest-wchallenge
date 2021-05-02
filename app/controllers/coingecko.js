@@ -2,13 +2,12 @@ const { response } = require('express');
 const CoingeckoApi = require('coingecko-api');
 
 const CryptoCurrency = require('../models/crypto_currency');
-const User = require('../models/user');
 const utils = require('../helpers/utils');
 
 // const CoinGecko = require('coingecko-api');
 
 const coingeckoService = require('../services/coingecko');
-const { collection } = require('../models/crypto_currency');
+const { cryptoCurrencieValidatorDB } = require('../validators/db_validators');
 
 const getCoins = async (req, res = response) => {
   const { per_page = 25, page = 1 } = req.query;
@@ -34,17 +33,11 @@ const getCoins = async (req, res = response) => {
 const addCoins = async (req, res = response) => {
   const coingeckoClient = new CoingeckoApi();
   // validate cryptocurrencies collection
+  // eslint-disable-next-line no-underscore-dangle
+  const iduser = req.user._id;
+  await cryptoCurrencieValidatorDB(iduser);
 
-  let cryptocurrenciesDB = await CryptoCurrency.findOne(iduser = req.user_id);
-  if (!cryptocurrenciesDB) {
-    // create cryptocurrencie on db
-    const cryptocurrencies = new CryptoCurrency({ iduser: req.user._id });
-    await cryptocurrencies.save();
-    // save idcryptocurrencie to user
-    await User.findByIdAndUpdate(req.user._id, { idcryptocurrencies: cryptocurrencies._id });
-  }
-
-  cryptocurrenciesDB = await CryptoCurrency.findOne(iduser = req.user._id);
+  const cryptocurrenciesDB = await CryptoCurrency.findOne({ iduser });
 
   const idsCoinsOld = cryptocurrenciesDB.ids;
   const idsCoinsNew = req.body.ids;
@@ -84,15 +77,30 @@ const addCoins = async (req, res = response) => {
 };
 
 const getTopCoins = async (req, res = response) => {
-  
-  // get list of crytos
-  const cryptocurrenciesDB = await CryptoCurrency.findOne(iduser = req.user._id);
+  const { order } = req.query;
+  const { top } = req.query;
 
-console.log(cryptocurrenciesDB.ids);
+  // eslint-disable-next-line no-underscore-dangle
+  const iduser = req.user._id;
 
-  res.status(200).json({
-    msg: ' Top crypto currencies successfully obtained',
-  });
+  await cryptoCurrencieValidatorDB(iduser);
+
+  // get list of cryptos
+  const cryptocurrenciesDB = await CryptoCurrency.findOne({ iduser });
+
+  const { ids } = cryptocurrenciesDB;
+
+  try {
+    const topList = await coingeckoService.getTopCoins(ids, top, order, iduser);
+    // console.log(data);
+    return res.status(200).send({
+      msg: 'Cryptocurrencies top were successfully obtained',
+      total_coins: ids.length,
+      top_list: topList,
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: 'Contact system administrator' });
+  }
 };
 
 module.exports = {

@@ -9,9 +9,9 @@ const dbConnector = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
+    // eslint-disable-next-line no-console
     console.log('DB online');
   } catch (error) {
-    console.log(error);
     throw new Error('Error launching DB');
   }
 };
