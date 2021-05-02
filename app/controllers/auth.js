@@ -29,7 +29,6 @@ const loginUser = async (req, res = response) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ msg: 'Contact system administrator' });
   }
 };

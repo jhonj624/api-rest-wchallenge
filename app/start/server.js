@@ -23,6 +23,7 @@ class Server {
     this.routes();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async dbConnection() {
     await dbConnector();
   }
@@ -43,6 +44,7 @@ class Server {
 
   listen() {
     this.app.listen(this.port, () => {
+      // eslint-disable-next-line no-console
       console.log('Server running in port: ', this.port);
     });
   }

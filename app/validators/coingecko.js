@@ -1,4 +1,3 @@
-const { response } = require('express');
 const { check } = require('express-validator');
 
 const { validateJWT } = require('../middlewares/validate_jwt');

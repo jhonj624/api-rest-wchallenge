@@ -6,8 +6,7 @@ const jwtGenerator = (uid = '') => new Promise((resolve, reject) => {
     expiresIn: '1d',
   }, (err, token) => {
     if (err) {
-      console.log(err);
-      reject('Token was not ganerate');
+      reject(new Error('Token was not ganerate'));
     } else {
       resolve(token);
     }

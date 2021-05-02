@@ -1,18 +1,20 @@
 const CoingeckoApi = require('coingecko-api');
 
-const getCoinsList = async (params = {}) => {
+const getCoinsList = async (params) => {
   const coingeckoClient = new CoingeckoApi();
 
   // get all ids - coins
   const { data } = await coingeckoClient.coins.list();
-  const listIds = new Array();
+  const listIds = [];
   data.forEach((coin) => {
     if ((coin.id)) listIds.push(coin.id);
   });
-  params.ids = { listIds };
+
+  const paramsQuery = params;
+  paramsQuery.ids = { listIds };
 
   // consulting api
-  const response = await coingeckoClient.coins.markets(params);
+  const response = await coingeckoClient.coins.markets(paramsQuery);
 
   // filtering data
   const finalList = response.data.map((res) => ({
