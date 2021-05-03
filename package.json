@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "Cryptocurrencies monitor",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jhonj624/api-rest-wchallenge"
+    },
     "scripts": {
         "dev": "NODE_ENV=development nodemon app",
         "start": "NODE_ENV=production node app.js",
