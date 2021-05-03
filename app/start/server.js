@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('../../Swagger/index');
+
 const { dbConnector } = require('../database/config');
 
 const userRoutes = require('../routes/user');
@@ -22,6 +25,9 @@ class Server {
 
     // App routes
     this.routes();
+
+    // Swagger
+    this.documentation();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -43,10 +49,14 @@ class Server {
     this.app.use(authRoutes);
   }
 
+  documentation() {
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup( swaggerSpec));
+  }
+
   listen() {
     this.servidor = this.app.listen(this.port, () => {
       // eslint-disable-next-line no-console
-      console.log('Server running in port: ', this.port);
+      console.log('Server running on port: ', this.port);
     });
   }
 
