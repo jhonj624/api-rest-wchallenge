@@ -6,16 +6,25 @@ This API allows create user and login. Then you can get cryptocurrencies list fr
 
 ### Installing node
 
-Get the latest version of node from the [official website](https://nodejs.org/)
+Get the latest version of Node from the [official website](https://nodejs.org/)
 
 ### Getting dependencies
-Run `npm install`
+Run 
+```bash
+npm install
+```
 
 ## Environment
 Make a copy of .env.example and call it .env 
 define PORT and SECRETKEY 
 The project was created using mongodb [MongoDB](https://www.mongodb.com/es) 
 get your link database from mongodb
+
+## Run the app
+To execute the application 
+```bash
+node app
+```
 
 ## Documentation
 Documentation was created with swagger and postman
