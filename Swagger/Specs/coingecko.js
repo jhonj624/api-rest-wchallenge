@@ -53,6 +53,8 @@
  *       responses:
  *         200:
  *           description: "Cryptocurrencies top were successfully obtained"
+ *         204:
+ *           description: "No content to list"
  *         401:
  *           description: "There is no token or a wrong token in the request"
  *

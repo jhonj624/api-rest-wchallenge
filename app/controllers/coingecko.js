@@ -52,6 +52,7 @@ const addCoins = async (req, res = response) => {
   const idsCoinsRejected = [];
   const idsCoinsAccepted = [];
   idsCoinsValidated.filter(
+    // eslint-disable-next-line array-callback-return
     (value, index) => {
       if (!value) {
         idsCoinsRejected.push(idsCoinsNew[index]);
@@ -89,6 +90,8 @@ const getTopCoins = async (req, res = response) => {
   const cryptocurrenciesDB = await CryptoCurrency.findOne({ iduser });
 
   const { ids } = cryptocurrenciesDB;
+
+  if (!ids.length) return res.status(204).send({ msg: 'No Content to list' });
 
   try {
     const topList = await coingeckoService.getTopCoins(ids, top, order, iduser);
