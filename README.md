@@ -36,4 +36,8 @@ See [doc postman]( https://documenter.getpostman.com/view/3032207/TzRLkVzp)
 after run the application go to browser on localhost:PORT/api-docs
 
 ## Test
-It is being implemtenting ...
+The test was implemented with mocha [more information](https://mochajs.org/). 
+To execute test
+```bash
+npm run test
+```

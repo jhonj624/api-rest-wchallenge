@@ -1,0 +1,15 @@
+[
+  {
+    "model": "User",
+    "documents": [
+      {
+        "name": "John",
+        "lastname": "Doe",
+        "username": "test1",
+        "password": "abcd1234",
+        "coin": "ARS"
+      }
+    ]
+  }
+]
+  

@@ -11,9 +11,8 @@
         "dev": "NODE_ENV=development nodemon app",
         "start": "NODE_ENV=production node app.js",
         "linter": "./node_modules/.bin/eslint app/**/*.js --fix",
-        "testj": "NODE_ENV=test jest --verbose --runInBand --silent ",
         "test:watch": "npm run test -- --watch",
-        "test": "mocha --timeout 10000 --exit"
+        "test": "mocha --recursive --timeout 12000 --exit"
     },
     "author": "Jhon J Velásquez S.",
     "license": "ISC",
@@ -35,10 +34,8 @@
         "eslint": "^7.25.0",
         "eslint-config-airbnb-base": "^14.2.1",
         "eslint-plugin-import": "^2.22.1",
+        "mocha": "^8.3.2",
+        "mongoose-seed": "^0.6.0",
         "supertest": "^6.1.3"
-    },
-    "jest": {
-        "testEnvironment": "node",
-        "verbose": true
     }
 }

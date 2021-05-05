@@ -50,7 +50,7 @@ class Server {
   }
 
   documentation() {
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup( swaggerSpec));
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   }
 
   listen() {
